@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Brainrot Fortune</title>
+  <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;600&display=swap" rel="stylesheet">
+  <style>
+    html, body { width:100%; height:100%; margin:0; font-family:'Fredoka', sans-serif; background: linear-gradient(135deg, #fff6cc, #e0f7ff); display:flex; justify-content:center; align-items:center; }
+    .container { text-align:center; padding:20px; max-width:600px; }
+    h1 { font-size:3rem; margin-bottom:10px; }
+    .highlight { font-size:1.8rem; color:#ff3b2e; font-weight:700; margin-bottom:20px; }
+    p { font-size:1.5rem; margin-bottom:30px; }
+    button { font-size:1.8rem; padding:20px 40px; border:none; border-radius:30px; background:#ff6f61; color:white; cursor:pointer; box-shadow:0 6px 0 #e64c3c; transition: transform 0.1s; }
+    button:active { transform:translateY(4px); box-shadow:0 2px 0 #e64c3c; }
+    button.shake { animation: shake 0.2s; }
+    @keyframes shake {
+      0% { transform: translateX(0px); }
+      25% { transform: translateX(-5px); }
+      50% { transform: translateX(5px); }
+      75% { transform: translateX(-5px); }
+      100% { transform: translateX(0px); }
+    }
+    img { margin-top:30px; width:100%; max-width:500px; border-radius:16px; }
+    #fortune { margin-top:20px; font-size:1.6rem; }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <h1>Brainrot Fortune</h1>
+    <div class="highlight">✨ Today’s Meme Fortune! ✨</div>
+    <p>Click the button. A meme decides your day.</p>
+    <button id="fortuneButton">Reveal My Fortune</button>
+    <img id="img">
+    <div id="fortune"></div>
+  </div>
+
+  <audio id="clickSound">
+    <source src="https://www.soundjay.com/button/sounds/button-16.mp3" type="audio/mpeg">
+  </audio>
+
+  <script>
+    const memes = [
+      ["https://i.imgur.com/8Km9tLL.jpeg","67 energy. Today makes no sense."],
+      ["https://i.imgur.com/4AiXzf8.jpeg","Tralalero Tralalala. Chaos but fun."],
+      ["https://i.imgur.com/QrKp6bN.jpeg","Italian brainrot mode activated."],
+      ["https://i.imgur.com/5Z6K4YJ.jpeg","Brain fried. You will not understand anything."],
+      ["https://i.imgur.com/ZcLLrkY.jpeg","This day makes zero sense. Just laugh."],
+      ["https://i.imgur.com/pZ8FQ8s.jpeg","You are running on vibes only. Survive today."],
+      ["https://i.imgur.com/FpYJ8lR.jpeg","Today is sponsored by chaos. Expect the unexpected."],
+      ["https://i.imgur.com/6n0Z7Zg.jpeg","Brain buffering... Take a break."],
+      ["https://i.imgur.com/0mKXK6Q.jpeg","Not your day, but memes save you."],
+      ["https://i.imgur.com/JYF1pQf.jpeg","You will laugh instead of progressing. Humor first."],
+      ["https://i.imgur.com/9Cqk6mM.jpeg","Absolutely zero productivity ahead."],
+      ["https://i.imgur.com/r2yQv7H.jpeg","Your plans have been cancelled by fate."],
+      ["https://i.imgur.com/T3x1YhA.jpeg","Nothing makes sense and that’s okay."],
+      ["https://i.imgur.com/e6QKZ4L.jpeg","Certified brainrot moment. Keep scrolling."],
+      ["https://i.imgur.com/m1WZ7Qd.jpeg","Just survive the day. Safety first."],
+      ["https://i.imgur.com/fV6QbMZ.jpeg","Your brain has left the chat."],
+      ["https://i.imgur.com/YJpI1dL.jpeg","Big mood. Everything is weird today."],
+      ["https://i.imgur.com/2FJkYfH.jpeg","No thoughts. Head empty."],
+      ["https://i.imgur.com/QbC7GnE.jpeg","You are the NPC in your own life today."],
+      ["https://i.imgur.com/p1x6F9Z.jpeg","Chaos incoming. Buckle up."],
+      ["https://i.imgur.com/nJkP4gY.jpeg","Laugh. Ignore. Repeat."],
+      ["https://i.imgur.com/xE8kF2H.jpeg","This is not a drill. Brainrot confirmed."],
+      ["https://i.imgur.com/ZtR4lK3.jpeg","Caution: memes ahead."],
+      ["https://i.imgur.com/1pV8bN5.jpeg","Energy level: absolute chaos."],
+      ["https://i.imgur.com/7hVYQJk.jpeg","Mentally elsewhere. Physically here."],
+      ["https://i.imgur.com/3QwR5L6.jpeg","Your day has been memed."],
+      ["https://i.imgur.com/0xJkL8A.jpeg","Today is sponsored by randomness."],
+      ["https://i.imgur.com/8FvG5Q9.jpeg","Brain fried. Proceed with caution."],
+      ["https://i.imgur.com/2yAfY5D.jpeg","Head empty. Do what you want."],
+      ["https://i.imgur.com/L9WkHkT.jpeg","No logic today. Only vibes."],
+      ["https://i.imgur.com/dxQFZ4B.jpeg","Bro woke up and chose nothing."],
+      ["https://i.imgur.com/0M7KZ9G.jpeg","This meme controls your fate now."],
+      ["https://i.imgur.com/2gFJkL8.jpeg","Surreal energy. Expect chaos."],
+      ["https://i.imgur.com/m3K8nL7.jpeg","Confusion guaranteed. Laugh anyway."],
+      ["https://i.imgur.com/f6V8QkD.jpeg","Mood: big brainrot."],
+      ["https://i.imgur.com/7Jx6F9H.jpeg","Nothing productive happens today."],
+      ["https://i.imgur.com/9Lk7QnG.jpeg","Randomness incoming. Brace yourself."],
+      ["https://i.imgur.com/1xF8RkL.jpeg","Memes dictate your actions today."],
+      ["https://i.imgur.com/Q8k9FvJ.jpeg","Head empty. Heart full of chaos."],
+      ["https://i.imgur.com/X7k6L9M.jpeg","Brain: offline. Vibes: online."],
+      ["https://i.imgur.com/3yF8P1L.jpeg","This is a certified chaos day."],
+      ["https://i.imgur.com/6kV9L7Q.jpeg","Survive the memes. Survive the day."],
+      ["https://i.imgur.com/2hF7K3J.jpeg","Brain loading... 99% confusion."],
+      ["https://i.imgur.com/9pF6L8M.jpeg","Laugh. Meme. Repeat."],
+      ["https://i.imgur.com/4yG7K9P.jpeg","Chaos energy maxed out."],
+      ["https://i.imgur.com/7xH8L2M.jpeg","You are a meme now."],
+      ["https://i.imgur.com/1kJ7L8Q.jpeg","Enjoy the absurdity."],
+      ["https://i.imgur.com/3F8K9L1.jpeg","Big brainrot vibes only."],
+      ["https://i.imgur.com/6xJ7K8Q.jpeg","Nothing matters. Just memes."],
+      ["https://i.imgur.com/2V9L8M1.jpeg","Random chaos energy detected."],
+      ["https://i.imgur.com/5xK7L9N.jpeg","Memes are your destiny today."],
+      ["https://i.imgur.com/8yJ7K2L.jpeg","Big mood chaos confirmed."]
+    ];
+
+    const button = document.getElementById('fortuneButton');
+    const clickSound = document.getElementById('clickSound');
+
+    button.addEventListener('click', () => {
+      button.classList.add('shake');
+      setTimeout(() => button.classList.remove('shake'), 200);
+      clickSound.currentTime = 0;
+      clickSound.play();
+
+      const r = memes[Math.floor(Math.random() * memes.length)];
+      document.getElementById("img").src = r[0];
+      document.getElementById("fortune").innerText = r[1];
+    });
+  </script>
+
+</body>
+</html>
