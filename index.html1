@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Brainrot Meme Fortune</title>
+
+  <!-- Google Font -->
+  <link href="https://fonts.googleapis.com/css2?family=Comic+Neue:wght@700&display=swap" rel="stylesheet">
+
+  <style>
+    body {
+      margin: 0;
+      min-height: 100vh;
+      background: linear-gradient(135deg, #fff6cc, #e0f7ff);
+      font-family: 'Comic Neue', Arial, sans-serif;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .box {
+      background: white;
+      border-radius: 20px;
+      padding: 40px 30px;
+      width: 90%;
+      max-width: 420px;
+      text-align: center;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+    }
+
+    h1 {
+      font-size: 36px;
+      margin-bottom: 10px;
+    }
+
+    .subtitle {
+      font-size: 20px;
+      margin-bottom: 30px;
+    }
+
+    button {
+      font-size: 24px;
+      padding: 18px 32px;
+      border: none;
+      border-radius: 16px;
+      background: #ffde59;
+      cursor: pointer;
+      transition: transform 0.1s, box-shadow 0.1s;
+      box-shadow: 0 6px 0 #e6c84f;
+    }
+
+    button:active {
+      transform: translateY(4px);
+      box-shadow: 0 2px 0 #e6c84f;
+    }
+
+    img {
+      margin-top: 30px;
+      width: 100%;
+      max-width: 300px;
+      border-radius: 16px;
+    }
+
+    #text {
+      margin-top: 20px;
+      font-size: 22px;
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="box">
+    <h1>🧠 Brainrot Fortune</h1>
+    <div class="subtitle">One click. Zero thoughts.</div>
+
+    <button onclick="go()">DESTROY MY BRAIN</button>
+
+    <img id="img">
+    <div id="text"></div>
+  </div>
+
+  <script>
+    const memes = [
+      ["https://i.imgur.com/8Km9tLL.jpeg", "67. No explanation. Just 67."],
+      ["https://i.imgur.com/4AiXzf8.jpeg", "Tralalero Tralalala energy today."],
+      ["https://i.imgur.com/QrKp6bN.jpeg", "Italian brainrot mode activated."],
+      ["https://i.imgur.com/5Z6K4YJ.jpeg", "Your brain is already fried."],
+      ["https://i.imgur.com/ZcLLrkY.jpeg", "This day makes zero sense."]
+    ];
+
+    function go() {
+      const r = memes[Math.floor(Math.random() * memes.length)];
+      document.getElementById("img").src = r[0];
+      document.getElementById("text").innerText = r[1];
+    }
+  </script>
+
+</body>
+</html>
